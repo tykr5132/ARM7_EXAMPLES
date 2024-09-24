@@ -1,0 +1,91 @@
+////generate an external interrupt EINT2 from the p2.12
+//// generate interrupt using level trigger
+//// toggle 4 leds p1.21-p1.24
+////toggle led p1.19 in the main program
+//#include<lpc17xx.h>
+//void External_Int_config();
+//void External1_Int_config();
+//void delay(unsigned int i);
+//int main()
+//{
+//LPC_GPIO1->FIODIR|=(0XFF<<19);
+//External_Int_config();
+//while(1)
+//{
+//LPC_GPIO1->FIOSET=(1<<19);
+//delay(100);
+//LPC_GPIO1->FIOCLR=(1<<19);
+//delay(100);
+//}
+//}
+//void External_Int_config()
+//{
+//LPC_PINCON->PINSEL4|=(1<<24); //configure p2.12 as ENT2
+//LPC_SC->EXTMODE |=~(1<<2);	  //configure ENT2 as level trigger
+//LPC_SC->EXTPOLAR|=(1<<2);	//configure ENT2 as
+//NVIC_EnableIRQ(EINT2_IRQn);	 //Enable EINT2 Interrupt
+//}
+//void EINT2_IRQHandler(void)
+//{
+//LPC_GPIO1->FIOSET=(0XfF<<19);
+//delay(100);
+//LPC_GPIO1->FIOCLR=(0XFf<<19);
+//delay(100);
+//LPC_SC->EXTINT=(1<<2);	 // clear EINT2
+//}
+//void delay(unsigned int i)
+//{
+//int j,k;
+//for(j=0;j<i;j++)
+//for(k=0;k<3000;k++);
+//}
+//
+
+
+
+
+
+
+
+   //generate an external interrupt EINT2 from the p2.12
+// generate interrupt using level trigger
+// toggle 4 leds p1.21-p1.24
+//toggle led p1.19 in the main program
+#include<lpc17xx.h>
+void External_Int_config();
+void External1_Int_config();
+void delay(unsigned int i);
+int main()
+{
+LPC_GPIO1->FIODIR|=(0XFF<<19);
+External_Int_config();
+while(1)
+{
+LPC_GPIO1->FIOSET=(1<<19);
+delay(100);
+LPC_GPIO1->FIOCLR=(1<<19);
+delay(100);
+}
+}
+void External_Int_config()
+{
+LPC_PINCON->PINSEL4|=(1<<26); //configure p2.12 as ENT2
+LPC_SC->EXTMODE |=~(1<<3);	  //configure ENT2 as level trigger
+LPC_SC->EXTPOLAR|=(1<<3);	//configure ENT2 as
+NVIC_EnableIRQ(EINT3_IRQn);	 //Enable EINT2 Interrupt
+}
+void EINT3_IRQHandler(void)
+{
+LPC_GPIO1->FIOSET=(0XfF<<19);
+delay(100);
+LPC_GPIO1->FIOCLR=(0XFf<<19);
+delay(100);
+LPC_SC->EXTINT=(1<<3);	 // clear EINT2
+}
+void delay(unsigned int i)
+{
+int j,k;
+for(j=0;j<i;j++)
+for(k=0;k<3000;k++);
+}
+
